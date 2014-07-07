@@ -2,8 +2,8 @@
 /*
 Plugin Name: Auto Files
 Plugin URI: http://wpadami.com/cms-sistemleri/wordpress/auto-files-mini-bir-auto-attachments.html
-Description: This plugin is minified version of Auto Attachments. Supported attachment types are Word, Excel, Pdf, PowerPoint, zip, rar, tar, tar.gz 
-Version: 0.1
+Description: This plugin is minified version of Auto Attachments. Supported attachment types are Word, Excel, Pdf, PowerPoint, zip, rar, tar, tar.gz
+Version: 0.2
 Author: Serkan Algur
 Author URI: http://www.wpadami.com
 License: GPLv2 or later
@@ -14,11 +14,16 @@ if (preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 				die('You are not allowed to call this page directly.');
 }
 
-// CSS Style Loading 
+// CSS Style Loading
 if (!is_admin()){
 	wp_enqueue_style('autofilesstyle', plugins_url('/auto-files/autofiles.css'), __FILE__ );
 }
+function multilingual_af( ) {
+				load_plugin_textdomain('autof', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+add_action('init', 'multilingual_af');
 
+include('metaboxes.php');
 
 function autof_show_files() {
 $files = get_children(array( //do only if there are attachments of these qualifications
@@ -62,27 +67,30 @@ $files = get_children(array( //do only if there are attachments of these qualifi
 			$filehtml .= "<a class='filetitle' href='$file_link'><strong>" . $file->post_title . "</strong></a>";
 			$filehtml .= "</div>";
 		}
-		$filehtml .="</div>";		
+		$filehtml .="</div>";
 		$filehtml .="<div class='clear'> </div>";
 		return $filehtml;
-	} 
+	}
 }
 
 add_filter('the_content', 'autof_insertintoContent');
 function autof_insertintoContent($content) {
+	global $post;
+	$metapost = get_post_meta($post->ID,'aa_post_meta',TRUE);
+	$metapage = get_post_meta($post->ID,'aa_page_meta',TRUE);
 		if (get_post_type() == 'post') {
-			if (!post_password_required()){ 
-				$content .= autof_show_files();
-				return $content;
+			if (!post_password_required() && $metapost['show'] == 'yes'){
+					$content .= autof_show_files();
+					return $content;
 			} else {
 				return $content;
 			}
 		}
-		
+
 		if (get_post_type() == 'page'){
-			if (!post_password_required()){
-				$content .= autof_show_files();
-				return $content;
+			if (!post_password_required() && $metapage['show'] == 'yes'){
+					$content .= autof_show_files();
+					return $content;
 			} else {
 				return $content;
 			}

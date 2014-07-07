@@ -32,6 +32,10 @@ Use WordPress media uploader when you create new page or post **(Insert / Upload
 
 == Changelog ==
 
+= Version 0.2 =
+* Users can hide Auto Files from page and posts. Users will find a metabox each page/post edit area.
+* English and Turkish Language Added for metaboxes. (07.07.2014)
+
 = Version 0.1 =
 * Plugin Released (24.04.2014)
 
