@@ -3,7 +3,7 @@
 Plugin Name: Auto Files
 Plugin URI: http://wpadami.com/cms-sistemleri/wordpress/auto-files-mini-bir-auto-attachments.html
 Description: This plugin is minified version of Auto Attachments. Supported attachment types are Word, Excel, Pdf, PowerPoint, zip, rar, tar, tar.gz
-Version: 0.2
+Version: 0.3
 Author: Serkan Algur
 Author URI: http://www.wpadami.com
 License: GPLv2 or later
@@ -79,7 +79,7 @@ function autof_insertintoContent($content) {
 	$metapost = get_post_meta($post->ID,'aa_post_meta',TRUE);
 	$metapage = get_post_meta($post->ID,'aa_page_meta',TRUE);
 		if (get_post_type() == 'post') {
-			if (!post_password_required() && $metapost['show'] == 'yes'){
+			if (!post_password_required() && ($metapost['show'] == 'yes' || $metapost['show'] == null || $metapost['fshow'] == yes)){
 					$content .= autof_show_files();
 					return $content;
 			} else {
@@ -88,7 +88,7 @@ function autof_insertintoContent($content) {
 		}
 
 		if (get_post_type() == 'page'){
-			if (!post_password_required() && $metapage['show'] == 'yes'){
+			if (!post_password_required() && ($metapage['show'] == 'yes' || $metapage['show'] == null || $metapage['fshow'] == 'yes')){
 					$content .= autof_show_files();
 					return $content;
 			} else {
