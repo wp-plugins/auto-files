@@ -3,21 +3,23 @@
 Plugin Name: Auto Files
 Plugin URI: http://wpadami.com/cms-sistemleri/wordpress/auto-files-mini-bir-auto-attachments.html
 Description: This plugin is minified version of Auto Attachments. Supported attachment types are Word, Excel, Pdf, PowerPoint, zip, rar, tar, tar.gz
-Version: 0.3
+Version: 0.4
 Author: Serkan Algur
 Author URI: http://www.wpadami.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+
 // Stop direct call
 if (preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) {
 				die('You are not allowed to call this page directly.');
 }
-
 // CSS Style Loading
+
 if (!is_admin()){
 	wp_enqueue_style('autofilesstyle', plugins_url('/auto-files/autofiles.css'), __FILE__ );
 }
+
 function multilingual_af( ) {
 				load_plugin_textdomain('autof', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
@@ -53,6 +55,7 @@ $files = get_children(array( //do only if there are attachments of these qualifi
 						"application/postscript",
 						"applicationvnd.ms-excel.sheet.macroEnabled.12",
 		)));
+
 	if ($files) {
 		$filehtml .= '<div class="files section group">';
 		foreach ($files as $file) //setup array for more than one file attachment
@@ -74,12 +77,12 @@ $files = get_children(array( //do only if there are attachments of these qualifi
 }
 
 add_filter('the_content', 'autof_insertintoContent');
+
 function autof_insertintoContent($content) {
 	global $post;
 	$metapost = get_post_meta($post->ID,'aa_post_meta',TRUE);
-	$metapage = get_post_meta($post->ID,'aa_page_meta',TRUE);
 		if (get_post_type() == 'post') {
-			if (!post_password_required() && ($metapost['show'] == 'yes' || $metapost['show'] == null || $metapost['fshow'] == yes)){
+			if (!post_password_required() && $metapost != "no"){
 					$content .= autof_show_files();
 					return $content;
 			} else {
@@ -88,7 +91,7 @@ function autof_insertintoContent($content) {
 		}
 
 		if (get_post_type() == 'page'){
-			if (!post_password_required() && ($metapage['show'] == 'yes' || $metapage['show'] == null || $metapage['fshow'] == 'yes')){
+			if (!post_password_required() && $metapost != "no"){
 					$content .= autof_show_files();
 					return $content;
 			} else {

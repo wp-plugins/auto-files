@@ -33,6 +33,9 @@ Use WordPress media uploader when you create new page or post **(Insert / Upload
 == Changelog ==
 
 = Version 0.3 =
+* Tested. Full Working.
+
+= Version 0.3 =
 * Fixes for file attachments show. Auto Attachments settings fully supported with this version.
 
 = Version 0.2 =
