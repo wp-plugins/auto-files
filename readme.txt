@@ -5,7 +5,7 @@ Tags: attachments, attachment, zip, rar, tar, tar.gz, odf, ods, plugin, document
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: trunk
 
 This plugin is minified version of Auto Attachments. Supported attachment types: Word, Excel, Pdf, PowerPoint, odf, ods, zip, rar, tar
@@ -32,7 +32,10 @@ Use WordPress media uploader when you create new page or post **(Insert / Upload
 
 == Changelog ==
 
-= Version 0.3 =
+= Version 0.5 =
+* Tested for WordPress 4.0 Working.
+
+= Version 0.4 =
 * Tested. Full Working.
 
 = Version 0.3 =
