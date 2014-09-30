@@ -32,6 +32,9 @@ Use WordPress media uploader when you create new page or post **(Insert / Upload
 
 == Changelog ==
 
+= Version 0.7 =
+* French (fr_FR) language aded (Google Translate).
+
 = Version 0.6 =
 * Custom Post Types Problem (`the_content()` display problem) solved.
 
